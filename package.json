@@ -13,6 +13,7 @@
     "test:ui": "vitest --ui",
     "docker:compose": "docker compose up -d",
     "prisma:migrate": "prisma migrate dev",
+    "prisma:migrate:deploy": "prisma migrate deploy",
     "prisma:studio": "prisma studio"
   },
   "keywords": [],
