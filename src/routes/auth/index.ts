@@ -1,7 +1,7 @@
 import { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
-// import { authenticate } from '@/controllers/authenticare'
+import { authenticateController } from '@/controllers/Auth'
 
 export const auth: FastifyPluginAsyncZod = async (app) => {
   app.post(
@@ -21,8 +21,6 @@ export const auth: FastifyPluginAsyncZod = async (app) => {
         },
       },
     },
-    async (request, reply) => {
-      return reply.status(200).send('Hello World')
-    },
+    authenticateController,
   )
 }

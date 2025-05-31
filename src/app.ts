@@ -7,6 +7,7 @@ import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fast
 import { ZodError } from 'zod'
 
 import { env } from './env'
+import { auth } from './routes/Auth'
 import { user } from './routes/User'
 
 export const app = fastify().withTypeProvider()
@@ -48,6 +49,7 @@ app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
 
+app.register(auth)
 app.register(user)
 
 app.setErrorHandler((error, _, reply) => {
