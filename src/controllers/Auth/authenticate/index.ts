@@ -44,14 +44,8 @@ export async function authenticateController(request: FastifyRequest, reply: Fas
     }
 
     const [token, refreshToken] = await Promise.all([
-      reply.jwtSign(
-        { ...userData, password_hash: undefined },
-        { sign: { sub: userData.id, expiresIn: TOKEN_EXPIRES_IN } },
-      ),
-      reply.jwtSign(
-        { ...userData, password_hash: undefined },
-        { sign: { sub: userData.id, expiresIn: REFRESH_TOKEN_EXPIRES_IN } },
-      ),
+      reply.jwtSign({ ...userData }, { sign: { sub: userData.id, expiresIn: TOKEN_EXPIRES_IN } }),
+      reply.jwtSign({ ...userData }, { sign: { sub: userData.id, expiresIn: REFRESH_TOKEN_EXPIRES_IN } }),
     ])
 
     return reply

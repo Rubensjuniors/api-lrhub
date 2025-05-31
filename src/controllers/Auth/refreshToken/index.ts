@@ -28,7 +28,6 @@ export async function refreshTokenController(request: FastifyRequest, reply: Fas
 
     const user = {
       ...request.user,
-      password_hash: undefined,
     } as User
 
     const token = await reply.jwtSign(
