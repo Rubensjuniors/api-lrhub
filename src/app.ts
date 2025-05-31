@@ -1,3 +1,4 @@
+import fastifyCookie from '@fastify/cookie'
 import cors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
@@ -15,6 +16,7 @@ export const app = fastify().withTypeProvider()
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
 
+// register cors
 app.register(cors, {
   origin: true, // Permite todas as origens
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
@@ -22,10 +24,16 @@ app.register(cors, {
   credentials: true,
 })
 
+// jwt token configuration
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
+  cookie: {
+    cookieName: 'refreshToken',
+    signed: false,
+  },
 })
 
+// swagger configuration
 app.register(fastifySwagger, {
   openapi: {
     info: {
@@ -49,9 +57,14 @@ app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
 
+// Register Cookies
+app.register(fastifyCookie)
+
+// Register Routesv
 app.register(auth)
 app.register(user)
 
+// Set errors OK
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
     return reply.status(400).send({
