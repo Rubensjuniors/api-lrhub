@@ -3,7 +3,7 @@ import { FastifyRequest } from 'fastify'
 
 import { ERROR_MESSAGE } from '../constants'
 
-export function logoutController(_request: FastifyRequest, reply: FastifyReply) {
+export async function logoutController(_request: FastifyRequest, reply: FastifyReply) {
   return reply
     .clearCookie('token', { path: '/' })
     .clearCookie('refreshToken', { path: '/' })

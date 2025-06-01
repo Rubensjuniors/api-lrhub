@@ -20,7 +20,7 @@ app.setSerializerCompiler(serializerCompiler)
 app.register(cors, {
   origin: env.NODE_ENV === 'development' ? true : env.WEB_URL,
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
   credentials: true,
 })
 
@@ -54,15 +54,15 @@ app.register(fastifySwagger, {
     },
     components: {
       securitySchemes: {
-        bearerAuth: {
+        cookieAuth: {
           type: 'http',
           scheme: 'bearer',
-          bearerFormat: 'JWT', // Formato do token (opcional)
+          bearerFormat: 'JWT',
         },
       },
     },
   },
-  transform: jsonSchemaTransform, // Supondo que seja para transformar os schemas
+  transform: jsonSchemaTransform,
 })
 
 app.register(fastifySwaggerUi, {

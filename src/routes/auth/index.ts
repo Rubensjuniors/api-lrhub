@@ -32,55 +32,45 @@ export const auth: FastifyPluginAsyncZod = async (app) => {
 
   app.patch(
     '/auth/refreshToken',
-    // {
-    //   schema: {
-    //     tags: ['Auth'],
-    //     operationId: 'refreshToken',
-    //     description: 'Refresh user authentication token',
-    //     response: {
-    //       200: z.object({
-    //         message: z.string(),
-    //       }),
-    //       400: z.object({
-    //         message: z.string(),
-    //         errors: z.array(z.any()).optional(),
-    //       }),
-    //       401: z.object({
-    //         message: z.string(),
-    //       }),
-    //       500: z.object({
-    //         message: z.string(),
-    //       }),
-    //     },
-    //   },
-    // },
+    {
+      schema: {
+        tags: ['Auth'],
+        operationId: 'refreshToken',
+        description: 'Refresh user authentication token',
+        response: {
+          200: z.object({
+            message: z.string(),
+          }),
+          400: z.object({
+            message: z.string(),
+            errors: z.array(z.any()).optional(),
+          }),
+          401: z.object({
+            message: z.string(),
+          }),
+          500: z.object({
+            message: z.string(),
+          }),
+        },
+      },
+    },
     refreshTokenController,
   )
 
   app.post(
     '/auth/logout',
-    // {
-    //   schema: {
-    //     tags: ['Auth'],
-    //     operationId: 'refreshToken',
-    //     description: 'Refresh user authentication token',
-    //     response: {
-    //       200: z.object({
-    //         message: z.string(),
-    //       }),
-    //       400: z.object({
-    //         message: z.string(),
-    //         errors: z.array(z.any()).optional(),
-    //       }),
-    //       401: z.object({
-    //         message: z.string(),
-    //       }),
-    //       500: z.object({
-    //         message: z.string(),
-    //       }),
-    //     },
-    //   },
-    // },
+    {
+      schema: {
+        tags: ['Auth'],
+        operationId: 'logout',
+        description: 'logout token',
+        response: {
+          201: z.object({
+            message: z.string(),
+          }),
+        },
+      },
+    },
     logoutController,
   )
 }

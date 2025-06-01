@@ -23,7 +23,7 @@ export async function authenticateController(request: FastifyRequest, reply: Fas
   try {
     const authenticateUseCase = makeAuthenticateService()
     const {
-      user: { email: userEmail, id, name, urlCoverPhoto, phone },
+      user: { email: userEmail, id, name, urlCoverPhoto, phone, created_at },
     } = await authenticateUseCase.execute({
       email,
       password,
@@ -33,6 +33,7 @@ export async function authenticateController(request: FastifyRequest, reply: Fas
       id,
       name,
       email: userEmail,
+      created_at,
       urlCoverPhoto: urlCoverPhoto ?? '',
       phone: phone ?? '',
     }

@@ -12,6 +12,7 @@ export async function profileController(request: FastifyRequest, reply: FastifyR
       id: user.sub,
       name: user.name,
       email: user.email,
+      created_at: user.created_at,
       urlCoverPhoto: user.urlCoverPhoto ?? '',
       phone: user.phone ?? '',
     }
