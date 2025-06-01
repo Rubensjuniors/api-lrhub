@@ -18,18 +18,30 @@ app.setSerializerCompiler(serializerCompiler)
 
 // register cors
 app.register(cors, {
-  origin: true, // Permite todas as origens
+  origin: env.NODE_ENV === 'development' ? true : env.WEB_URL,
   methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 })
 
-// jwt token configuration
+// Register Cookies
+app.register(fastifyCookie)
+
+// jwt configuration
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
   cookie: {
-    cookieName: 'refreshToken',
+    cookieName: 'token',
     signed: false,
+  },
+  verify: {
+    extractToken: (request) => {
+      const refreshToken = request.cookies.refreshToken
+      if (refreshToken) {
+        return refreshToken
+      }
+      return request.cookies.token
+    },
   },
 })
 
@@ -56,9 +68,6 @@ app.register(fastifySwagger, {
 app.register(fastifySwaggerUi, {
   routePrefix: '/docs',
 })
-
-// Register Cookies
-app.register(fastifyCookie)
 
 // Register Routesv
 app.register(auth)

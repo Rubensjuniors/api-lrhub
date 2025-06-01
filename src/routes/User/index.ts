@@ -33,29 +33,29 @@ export const user: FastifyPluginAsyncZod = async (app) => {
     '/user/profile',
     {
       onRequest: [verifyJWT],
-      schema: {
-        tags: ['Users'],
-        operationId: 'getUser',
-        description: 'Get User when authenticated.',
-        security: [
-          {
-            bearerAuth: [],
-          },
-        ],
-        response: {
-          200: z.object({
-            id: z.string(),
-            name: z.string(),
-            email: z.string().email(),
-            created_at: z.date(),
-            urlCoverPhoto: z.string().optional(),
-            phone: z.string().optional(),
-          }),
-          404: z.object({
-            message: z.string(),
-          }),
-        },
-      },
+      // schema: {
+      //   tags: ['Users'],
+      //   operationId: 'getUser',
+      //   description: 'Get User when authenticated.',
+      //   security: [
+      //     {
+      //       bearerAuth: [],
+      //     },
+      //   ],
+      //   response: {
+      //     200: z.object({
+      //       id: z.string(),
+      //       name: z.string(),
+      //       email: z.string().email(),
+      //       created_at: z.date(),
+      //       urlCoverPhoto: z.string().optional(),
+      //       phone: z.string().optional(),
+      //     }),
+      //     404: z.object({
+      //       message: z.string(),
+      //     }),
+      //   },
+      // },
     },
     profileController,
   )

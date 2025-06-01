@@ -13,6 +13,7 @@ const envSchema = z.object({
   TITLE: z.string().default('api-lr-hub'),
   PORT: z.coerce.number().default(3333),
   JWT_SECRET: z.string(),
+  WEB_URL: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

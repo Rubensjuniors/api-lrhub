@@ -2,6 +2,7 @@ import { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
 import { authenticateController } from '@/controllers/Auth/authenticate'
+import { logoutController } from '@/controllers/Auth/logout'
 import { refreshTokenController } from '@/controllers/Auth/refreshToken'
 
 export const auth: FastifyPluginAsyncZod = async (app) => {
@@ -14,11 +15,11 @@ export const auth: FastifyPluginAsyncZod = async (app) => {
         description: 'Authenticate user.',
         body: z.object({
           email: z.string().email(),
-          password: z.string().min(6),
+          password: z.string().min(8),
         }),
         response: {
           200: z.object({
-            token: z.string(),
+            message: z.string(),
           }),
           400: z.object({ message: z.string(), errors: z.array(z.any()).optional() }),
           401: z.object({ message: z.string() }),
@@ -31,28 +32,55 @@ export const auth: FastifyPluginAsyncZod = async (app) => {
 
   app.patch(
     '/auth/refreshToken',
-    {
-      schema: {
-        tags: ['Auth'],
-        operationId: 'refreshToken',
-        description: 'Refresh user authentication token',
-        response: {
-          200: z.object({
-            token: z.string(),
-          }),
-          400: z.object({
-            message: z.string(),
-            errors: z.array(z.any()).optional(),
-          }),
-          401: z.object({
-            message: z.string(),
-          }),
-          500: z.object({
-            message: z.string(),
-          }),
-        },
-      },
-    },
+    // {
+    //   schema: {
+    //     tags: ['Auth'],
+    //     operationId: 'refreshToken',
+    //     description: 'Refresh user authentication token',
+    //     response: {
+    //       200: z.object({
+    //         message: z.string(),
+    //       }),
+    //       400: z.object({
+    //         message: z.string(),
+    //         errors: z.array(z.any()).optional(),
+    //       }),
+    //       401: z.object({
+    //         message: z.string(),
+    //       }),
+    //       500: z.object({
+    //         message: z.string(),
+    //       }),
+    //     },
+    //   },
+    // },
     refreshTokenController,
+  )
+
+  app.post(
+    '/auth/logout',
+    // {
+    //   schema: {
+    //     tags: ['Auth'],
+    //     operationId: 'refreshToken',
+    //     description: 'Refresh user authentication token',
+    //     response: {
+    //       200: z.object({
+    //         message: z.string(),
+    //       }),
+    //       400: z.object({
+    //         message: z.string(),
+    //         errors: z.array(z.any()).optional(),
+    //       }),
+    //       401: z.object({
+    //         message: z.string(),
+    //       }),
+    //       500: z.object({
+    //         message: z.string(),
+    //       }),
+    //     },
+    //   },
+    // },
+    logoutController,
   )
 }

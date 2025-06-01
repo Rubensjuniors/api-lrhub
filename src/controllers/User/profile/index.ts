@@ -1,24 +1,22 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 
-import { makeGetUserProfileService } from '@/services/User/profile'
-
 export async function profileController(request: FastifyRequest, reply: FastifyReply) {
   try {
-    const getUserProfile = makeGetUserProfileService()
-    const {
-      user: { email, created_at, id, name, urlCoverPhoto, phone },
-    } = await getUserProfile.execute({
-      userId: request.user.sub,
-    })
+    const user = request.user
 
-    return reply.status(200).send({
-      id,
-      name,
-      email,
-      created_at,
-      urlCoverPhoto,
-      phone,
-    })
+    if (!user) {
+      return reply.status(401).send({ message: 'User not authenticated' })
+    }
+
+    const filteredUser = {
+      id: user.sub,
+      name: user.name,
+      email: user.email,
+      urlCoverPhoto: user.urlCoverPhoto ?? '',
+      phone: user.phone ?? '',
+    }
+
+    return reply.status(200).send(filteredUser)
   } catch (error) {
     return reply.status(500).send({ message: 'Internal server error' })
   }
