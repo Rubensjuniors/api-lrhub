@@ -15,7 +15,7 @@ export class RegisterService {
     urlCoverPhoto,
     phone,
   }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
-    const password_hash = await hash(password, 6)
+    const password_hash = await hash(password, 8)
 
     const checkEmail = await this.usersRepository.findByEmail(email)
 
@@ -27,6 +27,7 @@ export class RegisterService {
       name,
       email,
       password_hash,
+      created_at: new Date(),
       urlCoverPhoto: urlCoverPhoto ? urlCoverPhoto : '',
       phone: phone ? phone : '',
     })
