@@ -8,7 +8,7 @@ export async function registerController(request: FastifyRequest, reply: Fastify
   const requestBodySchema = z.object({
     name: z.string(),
     email: z.string().email(),
-    password: z.string().min(6),
+    password: z.string().min(8),
     urlCoverPhoto: z.string().optional(),
     phone: z.string().optional(),
   })
