@@ -8,8 +8,8 @@ import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fast
 import { ZodError } from 'zod'
 
 import { env } from './env'
-import { auth } from './routes/Auth'
-import { user } from './routes/User'
+import { auth } from './routes/auth'
+import { user } from './routes/user'
 
 export const app = fastify().withTypeProvider()
 
