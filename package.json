@@ -6,7 +6,7 @@
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
     "lint": "eslint src --ext .ts --fix",
-    "build": "tsup src --out-dir build",
+    "build": "tsup",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
