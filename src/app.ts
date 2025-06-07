@@ -9,7 +9,7 @@ import { ZodError } from 'zod'
 
 import { env } from '@/env'
 import { auth } from '@/routes/auth'
-import { user } from '@/routes/user'
+import { user } from '@/routes/User'
 
 export const app = fastify().withTypeProvider()
 
