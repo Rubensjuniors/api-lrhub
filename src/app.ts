@@ -7,9 +7,9 @@ import fastify from 'fastify'
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
 import { ZodError } from 'zod'
 
-import { env } from './env'
-import { auth } from './routes/auth'
-import { user } from './routes/user'
+import { env } from '@/env'
+import { auth } from '@/routes/auth'
+import { user } from '@/routes/user'
 
 export const app = fastify().withTypeProvider()
 
