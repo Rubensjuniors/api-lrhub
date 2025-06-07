@@ -13,5 +13,7 @@ export default defineConfig({
     options.alias = {
       '@': './src',
     }
+    options.platform = 'node'
+    options.target = 'node18'
   },
 })
